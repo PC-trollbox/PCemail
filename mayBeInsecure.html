@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <title>! PCemail IS HTTP !</title>
+    <meta name="description" content="The new email to use.">
+    
+    <meta name="author" content="PC">
+    <meta http-equiv="Content-Language" content="en_US">
+    <style>
+      *{
+        font-family: Whitney Book,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+      }
+        .yes{
+background-color: #7289DA;
+    border-radius: 5px;
+    font-family: Whitney Book,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: white;
+    text-decoration: 0;
+    font-size: 15pt;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    text-decoration: none;
+      }
+            button{
+color: red;
+    border-radius: 5px;
+    font-family: Whitney Book,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    background-color: white;
+    text-decoration: 0;
+    font-size: 15pt;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-color: red;
+    color: red;
+      }
+      .no{
+color: red;
+    border-radius: 5px;
+    font-family: Whitney Book,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    background-color: white;
+    text-decoration: 0;
+    font-size: 15pt;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 2px outset red;
+    color: red;
+    text-decoration: none;
+      }
+    </style>
+    
+  </head>
+  <body>
+    <script>
+      if (localStorage.getItem("setup") != "ok"){
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { 
+            document.body.style = "background: black; color: white;";
+            localStorage.setItem("black", "ok")
+          }
+           localStorage.setItem("setup", "ok")
+            location.reload()
+      }else if (localStorage.getItem("black") == "ok"){
+        document.body.style = "background: black; color: white;";
+         black = function(){
+          document.body.style = "background: white; color: black;";
+          localStorage.removeItem("black")
+          location.reload()
+        }
+      }else{
+        black = function(){
+          document.body.style = "background: black; color: white;";
+          location.reload()
+          localStorage.setItem("black", "ok")
+        }
+      }
+      document.body.innerHTML = "<button onclick=black()>Toggle black mode (JS only)</button><br>" + document.body.innerHTML
+    </script>
+    <a href="/" style="color:#408200">Main Page</a> / HTTPS Protocol Warning /
+    <h1>PCemail</h1>
+    <br>
+    <h2><em>The new email to use.</em></h2>
+    <br>
+    <br>
+    <h3>Insecure warning</h3>
+    <br>
+    <p>Protocol that you use, may be insecure.</p>
+    <p>This is HTTP. We need HTTPS. Please consider using HTTPS or check the checkbox (or pass /?check=1) that you will use HTTP. Use HTTP at your own risk.</p>
+    <a href="https://newemailtest.unitetrollboxy.repl.co/" class="yes">Use HTTPS</a>
+    <br>
+    <hr>
+    <br>
+    <form action="/">
+      <label><input type="checkbox" name="check"></input> Use HTTP (unrecommended)</label>  <button style="background-color: white; color: red;">Confirm the HTTP usage</button>
+    </form>
+    <br>
+    <hr>
+    <br>
+  </body>
+</html>
