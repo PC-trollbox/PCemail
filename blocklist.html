@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <title>Blocking inside PCemail</title>
+    <meta name="description" content="The new email to use.">
+    <style>
+      *{
+        font-family: Whitney Book,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+      }
+      </style>
+    <meta name="author" content="PC">
+    <meta http-equiv="Content-Language" content="en_US">
+  </head>
+  <body>
+   <script>
+      if (localStorage.getItem("setup") != "ok"){
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { 
+            document.body.style = "background: black; color: white;";
+            localStorage.setItem("black", "ok")
+            
+          }
+                      localStorage.setItem("setup", "ok")
+            location.reload()
+      }else if (localStorage.getItem("black") == "ok"){
+        document.body.style = "background: black; color: white;";
+         black = function(){
+          document.body.style = "background: white; color: black;";
+          localStorage.removeItem("black")
+          location.reload()
+        }
+      }else{
+        black = function(){
+          document.body.style = "background: black; color: white;";
+          location.reload()
+          localStorage.setItem("black", "ok")
+        }
+      }
+      document.body.innerHTML = "<button onclick=black()>Toggle black mode (JS only)</button><br>" + document.body.innerHTML
+    </script>
+    <a href="/" style="color:#408200">Main Page</a> / <a href="/login" style="color:#408200">Mail/Login</a> / Blocklist /
+    <h1>PCemail</h1>
+    <br>
+    <h2><em>The new email to use.</em></h2>
+    <br>
+    <br>
+    <h3>Blocking and unblocking</h3>
+    <br>
+    <h4>Unblocking and listing</h4>
+    <br>
+    $BLOCKED$
+    <br>
+    <hr>
+    <br>
+    <h4>Block</h4>
+    <br>
+    <p>Blocked people cannot send you the emails. The blocked people will see that you "not exist" while sending emails to you. But you still exist in DB.</p>
+    <form action="/block">
+      <input name="member" placeholder="username" required></input>
+      <br>
+      <button>Block</button>
+    </form>
+  </body>
+</html>
