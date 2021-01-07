@@ -7,7 +7,7 @@ app.use(cookieParser("PCEmail-SecretData"))
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-var adminEmail = ["PC@PCemail.com", "Nam@Nam", "gay@m.69", "copy@em.com"]
+var adminEmail = ["admins@please.list"]
 var authCodesActive = {};
 var fs = require("fs")
 var he = require("he")
@@ -390,7 +390,9 @@ app.post("/register", function(req, res) {
                     title: "Welcome to the system!",
                     author: "system@pcemail.com",
                     content: hask
-                }]
+                }],
+                keys: [],
+                backupkeys: ""
             }
             res.redirect("/login")
         } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
@@ -401,7 +403,9 @@ app.post("/register", function(req, res) {
                     title: "Welcome to the system!",
                     author: "system@pcemail.com",
                     content: hask
-                }]
+                }],
+                keys: [],
+                backupkeys: ""
             }
         }
         res.redirect("/login")
@@ -417,7 +421,9 @@ app.post("/register", function(req, res) {
                     title: "Welcome to the system!",
                     author: "system@pcemail.com",
                     content: hask
-                }]
+                }],
+                keys: [],
+                backupkeys: ""
             }
         }
         res.redirect("/login")
@@ -497,7 +503,7 @@ app.get("/admin", function(req, res) {
         fs.readFile(__dirname + "/admin.html", function(err, data) {
             if (err) return res.send("Error");
             var data2 = data.toString();
-            if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+            if (!adminEmail.includes(req.signedCookies["username"])) {
                 data2 = data2.replace("%admincontrols%", "Not an admin.");
                 data2 = data2.replace("%users%", "Failed to load users data.");
                 res.status(403).send(data2)
@@ -526,7 +532,7 @@ app.get("/ShutDown", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             IsCoding = true;
@@ -543,7 +549,7 @@ app.get("/Code", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             IsCoding = !IsCoding;
@@ -559,11 +565,11 @@ app.get("/BanMember", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             if (users.hasOwnProperty(req.query.member) && req.query.member !== undefined) {
-                if (req.query.member != "PC@PCemail.com" && req.query.member != "Nam@Nam" && req.query.member != "gay@m.69" && req.query.member != "copy@em.com") {
+                if (!adminEmails.includes(req.query.member)) {
                     var shouldBanned = users[req.query.member].banned ? undefined : true
                     users[req.query.member].banned = shouldBanned;
                     if (shouldBanned == undefined) {
@@ -587,11 +593,11 @@ app.get("/VerifyMember", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             if (users.hasOwnProperty(req.query.member) && req.query.member !== undefined) {
-                if (req.query.member != "PC@PCemail.com" && req.query.member != "Nam@Nam" && req.query.member != "gay@m.69" && req.query.member != "copy@em.com") {
+                if (adminEmail.req.query.member) {
                     if (users[req.query.member].verified !== true) {
                         users[req.query.member].verified = true;
                     } else {
@@ -615,11 +621,11 @@ app.get("/RemoveMember", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             if (users.hasOwnProperty(req.query.member) && req.query.member !== undefined) {
-                if (req.query.member != "PC@PCemail.com" && req.query.member != "Nam@Nam" && req.query.member != "gay@m.69" && req.query.member != "copy@em.com") {
+                if (!adminEmail.includes(req.query.member)) {
                     users[req.query.member] = undefined;
                     delete users[req.query.member];
                     res.redirect("/admin")
@@ -714,7 +720,7 @@ app.get("/RevokeKeys", function(req, res) {
     } else if (users.hasOwnProperty(req.signedCookies["username"]) == false) {
         res.redirect("/login")
     } else if (req.signedCookies["password"] == users[req.signedCookies["username"]].password) {
-        if (req.signedCookies["username"] != "PC@PCemail.com" && req.signedCookies["username"] != "Nam@Nam" && req.signedCookies["username"] != "gay@m.69" && req.signedCookies["username"] != "copy@em.com") {
+        if (!adminEmail.includes(req.signedCookies["username"])) {
             res.status(403).send("Admin status?!?!?!?")
         } else {
             if (Object.keys(authCodesActive).length == 0) {
