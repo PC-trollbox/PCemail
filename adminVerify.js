@@ -15,7 +15,7 @@ try{
 }
 console.log("Got users.json!");
 console.log("Setting admin emails...");
-var adminEmail = ["PC@PCemail.com", "Nam@Nam", "gay@m.69", "copy@em.com"]
+var adminEmail = ["admins@please.list"]
 console.log("Admin emails set!");
 console.log("ForEach loop...");
 for (var user in users){
